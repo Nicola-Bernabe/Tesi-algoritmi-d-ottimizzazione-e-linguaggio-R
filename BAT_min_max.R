@@ -1,5 +1,6 @@
 #  Author Nicola Bernabè ver 1.0 8/11/2021
-# the implemented version of the GA refers to the following Journal:  x
+# the implemented version of the BAT refers to the following Journal:  Bat Algorithm: A Novel Approach for Global Engineering Optimization
+#author Xin-She Yang
 #
 
 
