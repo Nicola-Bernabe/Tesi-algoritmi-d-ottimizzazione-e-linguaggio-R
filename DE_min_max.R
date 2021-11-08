@@ -1,6 +1,6 @@
 #https://www.agnesevardanega.eu/wiki/r/grafici/parametri_grafici   link per parametri grafici
 #  Author Nicola Bernabè ver 1.0 8/11/2021
-# the implemented version of the GA refers to the following Journal: df
+#Implementation of the Discendent Evolution algoritm for Benchmarks
 #
 
 #prendo 2 individui che saranno i genitori presi casualmente dalla popolazione

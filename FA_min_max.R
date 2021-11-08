@@ -1,7 +1,6 @@
 #  Author Nicola Bernabè ver 1.0 8/11/2021
-# the implemented version of the GA refers to the following Journal: c
-#
-
+# the implemented version of the FA refers to the following Journal:Firefly Algorithms for Multimodal Optimization
+#author Xin-She Yang
 controllo_intervallo<-function(x,y,ub,lb){
     #message(x," ",y," ",ub," ",lb)
     if(x>ub[1]){

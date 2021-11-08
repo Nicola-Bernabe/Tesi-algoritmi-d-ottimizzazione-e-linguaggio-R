@@ -1,6 +1,6 @@
 #  Author Nicola Bernabè ver 1.0 8/11/2021
-# the implemented version of the GA refers to the following Journal: 
-#
+#Implementation of the Simplex Genetic algorithm for Benchmarks 
+
 
 
 #prendo 2 individui che saranno i genitori presi casualmente dalla popolazione
