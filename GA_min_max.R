@@ -181,7 +181,7 @@ mainGA<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,MAXIMUM_GENERATION_
     for(i in 1:MAXIMUM_GENERATION_NUMBER){
         n_generazioni<-i
         #print(runif(1, 0,1))
-        genitori_indici<-sample(1:(MAX_DIMENSION_POPULATION), MAX_DIMENSION_POPULATION)#2 individui casuali
+        genitori_indici<-sample(1:(MAX_DIMENSION_POPULATION), MAX_DIMENSION_POPULATION)#array indici casuali della popolazione
         #print(genitori_1_2_indici)
         indice<-1
         for(j_iterazioni_individui in 1:(MAX_DIMENSION_POPULATION/2)){
@@ -247,7 +247,7 @@ mainGA<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,MAXIMUM_GENERATION_
 windows()
     par(mfrow=c(1,2))
     plot(FITNESS_grafico_migliore, type="l", col="red",lwd=10)
-    lines(FITNESS_grafico_migliore_generazione, type="l", col="blue",lty=5)
+    #lines(FITNESS_grafico_migliore_generazione, type="l", col="blue",lty=5)
     title(main="migliore e andamento fitness per generazione", col.main="blue", font.main="4")
 
     x_individui<-c()

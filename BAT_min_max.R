@@ -230,7 +230,7 @@ mainBAT<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,Generazioni,STAZIONARI
     windows()
     par(mfrow=c(1,2))
     plot(FITNESS_grafico_migliore, type="l", col="red",lwd=10)
-    lines(FITNESS_grafico_migliore_generazione, type="l", col="blue",lty=5)
+    #lines(FITNESS_grafico_migliore_generazione, type="l", col="blue",lty=5)
     title(main="migliore e andamento fitness per generazione", col.main="blue", font.main="4")
     
     x_particelle<-c()
