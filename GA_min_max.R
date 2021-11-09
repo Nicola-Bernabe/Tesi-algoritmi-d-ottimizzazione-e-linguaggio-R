@@ -1,64 +1,98 @@
 #  Author Nicola Bernabè ver 1.0 8/11/2021
 #Implementation of the Simplex Genetic algorithm for Benchmarks 
-
-
-
-#prendo 2 individui che saranno i genitori presi casualmente dalla popolazione
-selezione<-function(Population,MAX_DIMENSION_POPULATION,genitori_1_2){
-    #message(genitori_1_2[1]," rgrg ",genitori_1_2[2])
-    #print(Population[1][genitori_1_2[1]])
-    g1<-c(Population[1,genitori_1_2[1]],Population[2,genitori_1_2[1]],Population[3,genitori_1_2[1]])
-    g2<-c(Population[1,genitori_1_2[2]],Population[2,genitori_1_2[2]],Population[3,genitori_1_2[2]])
-    #print(g1[1][genitori_1_2[1]])
-    
-    #print(Population)
-    #print(Population[1,genitori_1_2[1]])
-    return(c(g1,g2))
-}
-crossover<-function(genitori_1_2,FUNZIONE_COSTO){#dato che ho solo 2 variabili ce poco da fare, la x del genitore 1 va al primo figlio , la y del primo genitore va al primo figlio, i restanti al 2 figlio
-    figlio_1<-c(genitori_1_2[1],genitori_1_2[5],FUNZIONE_COSTO(genitori_1_2[1],genitori_1_2[5]))
-    figlio_2<-c(genitori_1_2[2],genitori_1_2[4],FUNZIONE_COSTO(genitori_1_2[2],genitori_1_2[4]))
-    return(c(figlio_1,figlio_2))
-
-
-}
-#parte mutazione, ricordo figlio 1(1,2,3) figlio 2 (4,5,6) e si intendono (x,y,fitness)
-mutazione<-function(figli_1_2,percentuale,ub,lb,MAX_DIMENSION_POPULATION,FUNZIONE_COSTO){
-    if(runif(1, 0, 1)>0.5){#provo a generate un numero da 0 a 1, se >0.5 aumento al massimo del della percentuale,altrimenti lo diminuisco al massimo dela percentuale, X
-        if(runif(1, 0, 1)>0.5){
-            figli_1_2[1]<-figli_1_2[1]*runif(1,  1,1+percentuale)
-
-            figli_1_2[4]<-figli_1_2[4]*runif(1,  1,1+percentuale)
-
-            if(figli_1_2[1]>=ub[1]){#se vado oltre all intermallo allora metto il massimo
-                figli_1_2[1]<-ub[1]
-            }
-            if(figli_1_2[4]>=ub[1]){#se vado oltre all intermallo allora metto il massimo
-                figli_1_2[4]<-ub[1]
-            }
-            }
-    }else{#Y
-        figli_1_2[2]<-figli_1_2[2]*runif(1,percentuale,  1)
-
-        figli_1_2[5]<-figli_1_2[5]*runif(1,percentuale,  1)
-        if(figli_1_2[2]<=lb[2]){#se vado oltre all intermallo allora metto il massimo
-            figli_1_2[2]<-lb[2]
-        }
-        if(figli_1_2[5]<=lb[2]){#se vado oltre all intermallo allora metto il massimo
-            figli_1_2[5]<-lb[2]
-        }
-
-
+controllo_intervallo<-function(x,y,ub,lb){
+    if(x>ub[1]){
+        x<-ub[1]
     }
-    figli_1_2[3]<-FUNZIONE_COSTO(figli_1_2[1],figli_1_2[2])
-    figli_1_2[6]<-FUNZIONE_COSTO(figli_1_2[4],figli_1_2[5])
+    if(x<lb[1]){
+        x<-lb[1]
+    }
+    if(y>ub[2]){
+        y<-ub[2]
+    }
+    if(y<lb[2]){
+        y<-lb[2]
+    }
+
+    return (c(x,y))
+}
+
+
+aggiorno_popolazione<-function(Population,genitori_1_2_indici,CROSS_OVER_PROBABILITY,MUTATION_PROBABILITY,aumeto_diminuisco_percentuale_valore,ub,lb,MAX_DIMENSION_POPULATION,FUNZIONE_COSTO){
+    figlio_1<-c(0,0,0)
+    figlio_2<-c(0,0,0)
+    #la funzione costo lo calcola alla fine altrimenti si faranno calcoli inutili
     
+    if(runif(1,0,1)<=CROSS_OVER_PROBABILITY){
+        figlio_1<-c(Population[1,genitori_1_2_indici[1]],Population[2,genitori_1_2_indici[2]],0)
+        figlio_2<-c(Population[1,genitori_1_2_indici[2]],Population[2,genitori_1_2_indici[1]],0)
+    }else{
+        figlio_1<-c(Population[1,genitori_1_2_indici[1]],Population[2,genitori_1_2_indici[1]],0)
+        figlio_2<-c(Population[1,genitori_1_2_indici[2]],Population[2,genitori_1_2_indici[2]],0)
+    }
+    if(runif(1,0,1)<=MUTATION_PROBABILITY){
+        #scelgo figlio e variabile da modificare
+        if(runif(1,0,1)<0.5){#figlio 1
+            if(runif(1,0,1)<0.5){#x del 1° figlio
+                if(runif(1,0,1)<0.5){
+                    figlio_1[1]<-figlio_1[1]*runif(1,  1,1+aumeto_diminuisco_percentuale_valore)
+                }else{
+                    figlio_1[2]<-figlio_1[2]*runif(1,  1,1+aumeto_diminuisco_percentuale_valore)
+                }
+                    
+            }else{#y del 1° figlio
+                if(runif(1,0,1)<0.5){
+                    figlio_1[1]<-figlio_1[1]*runif(1,  1-aumeto_diminuisco_percentuale_valore,1)
+                }else{
+                    figlio_1[2]<-figlio_1[2]*runif(1,  1-aumeto_diminuisco_percentuale_valore,1)
+                }
+                
+                
+                
+            }
+            #message(1-aumeto_diminuisco_percentuale_valore,"  ",1+aumeto_diminuisco_percentuale_valore)
+            x_y<-controllo_intervallo(figlio_1[1],figlio_1[2],ub,lb)
+            figlio_1[1]<- x_y[1]
+            figlio_1[2]<- x_y[2]
+        }else{#2° figlio
+            if(runif(1,0,1)<0.5){#x del 1° figlio
+                if(runif(1,0,1)<0.5){
+                    figlio_2[1]<-figlio_2[1]*runif(1,  1,1+aumeto_diminuisco_percentuale_valore)
+                }else{
+                    figlio_2[2]<-figlio_2[2]*runif(1,  1,1+aumeto_diminuisco_percentuale_valore)
+                }
+                
+                
+            }else{#y del 1° figlio
+                if(runif(1,0,1)<0.5){
+                    figlio_2[1]<-figlio_2[1]*runif(1,  1-aumeto_diminuisco_percentuale_valore,1)
+            }else {
+                figlio_2[2]<-figlio_2[2]*runif(1,  1-aumeto_diminuisco_percentuale_valore,1)
+            }
+                
+                
+                
+            }
+            x_y<-controllo_intervallo(figlio_2[1],figlio_2[2],ub,lb)
+            figlio_2[1]<- x_y[1]
+            figlio_2[2]<- x_y[2]
+        }
+    }
+
+    Population[1,genitori_1_2_indici[1]]<-figlio_1[1]
+    Population[2,genitori_1_2_indici[1]]<-figlio_1[2]
+    Population[3,genitori_1_2_indici[1]]<-FUNZIONE_COSTO(figlio_1[1],figlio_1[2])
+
+    Population[1,genitori_1_2_indici[2]]<-figlio_2[1]
+    Population[2,genitori_1_2_indici[2]]<-figlio_2[2]
+    Population[3,genitori_1_2_indici[2]]<-FUNZIONE_COSTO(figlio_2[1],figlio_2[2])
     
 
 
-       
-    
-    return(figli_1_2)
+
+
+
+    return(Population)
 }
 aggiorno_file_individui<-function(Population,MAX_DIMENSION_POPULATION,generazione){
                 individuo<-c()
@@ -131,17 +165,7 @@ inizializzazione<-function(ub, lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,FUNZIONE
 
     return (Population)
 }
-aggiorno_figli_e_genitori<-function(genitori_1_2_indici,figli_1_2,Population){
-    Population[1,genitori_1_2_indici[1]]<-figli_1_2[1]#x
-    Population[2,genitori_1_2_indici[1]]<-figli_1_2[2]#y
-    Population[3,genitori_1_2_indici[1]]<-figli_1_2[3]#fitness
-    Population[1,genitori_1_2_indici[2]]<-figli_1_2[4]#x
-    Population[2,genitori_1_2_indici[2]]<-figli_1_2[5]#x
-    Population[3,genitori_1_2_indici[2]]<-figli_1_2[6]#x
 
-
-    return (Population)
-}
 
 mainGA<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,MAXIMUM_GENERATION_NUMBER,STAZIONARIETA,precisione,min_max,stampo_generazione,CROSS_OVER_PROBABILITY,MUTATION_PROBABILITY,aumeto_diminuisco_percentuale_valore,FUNZIONE_COSTO){
     Population<-inizializzazione(ub, lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,FUNZIONE_COSTO)#inizializzo la popolazione
@@ -157,32 +181,27 @@ mainGA<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,MAXIMUM_GENERATION_
     for(i in 1:MAXIMUM_GENERATION_NUMBER){
         n_generazioni<-i
         #print(runif(1, 0,1))
-        for(j_iterazioni_individui in 1:MAX_DIMENSION_POPULATION/2){
-            genitori_1_2_indici<-sample(1:(MAX_DIMENSION_POPULATION), 2)#2 individui casuali
-            genitori_1_2<-selezione(Population,MAX_DIMENSION_POPULATION,genitori_1_2_indici)
+        genitori_indici<-sample(1:(MAX_DIMENSION_POPULATION), MAX_DIMENSION_POPULATION)#2 individui casuali
+        #print(genitori_1_2_indici)
+        indice<-1
+        for(j_iterazioni_individui in 1:(MAX_DIMENSION_POPULATION/2)){
+            #print(genitori_1_2_indici)
+            genitori<-c(genitori_indici[indice],genitori_indici[indice+1])
+            #print( genitori)
+            #message(indice," pop ",MAX_DIMENSION_POPULATION/2," jj ",j_iterazioni_individui )
             
-            if(runif(1, 0,1)<=CROSS_OVER_PROBABILITY){#probabilità crossover
-                figli_1_2<-crossover(genitori_1_2,FUNZIONE_COSTO)#ho 2 figli
-                #print(figli_1_2)
-
-                }
+            #genitori_1_2_indici<-c(j_iterazioni_individui,j_iterazioni_individui+MAX_DIMENSION_POPULATION/2)
+            #print(genitori_1_2_indici)
             
-            if(runif(1, 0,1)<=MUTATION_PROBABILITY){
-                #message("generazione-> ",i," ",figli_1_2)
-               
-    
-                figli_1_2<-mutazione(figli_1_2,aumeto_diminuisco_percentuale_valore,ub,lb,MAX_DIMENSION_POPULATION,FUNZIONE_COSTO)
-                
-
-
-            }
-            Population<-aggiorno_figli_e_genitori(genitori_1_2_indici,figli_1_2,Population)
-            
+            Population<-aggiorno_popolazione(Population,genitori,CROSS_OVER_PROBABILITY,MUTATION_PROBABILITY,aumeto_diminuisco_percentuale_valore,ub,lb,MAX_DIMENSION_POPULATION,FUNZIONE_COSTO)
             #print(BEST_FITNESS)
+            indice<-indice+2
 
 
         }
         Migliore_fitness_generazione<-controllo_migliore_fitness(Population,MAX_UNKNOWNS,min_max)
+        #print(Migliore_fitness_generazione)
+        #message(Migliore_fitness_generazione[3]," ",BEST_FITNESS[3] )
         if(Migliore_fitness_generazione[3]<BEST_FITNESS[3]  && min_max==-1){#minimizzo
             BEST_FITNESS<-aggiorna_fitness(BEST_FITNESS,Migliore_fitness_generazione)
             indice_stazionarieta=0#ritorno a 0 la stazionarietà
@@ -264,12 +283,12 @@ lb<-c(-512,-512)
 aumeto_diminuisco_percentuale_valore=0.05
 
 MAX_UNKNOWNS<-2  #numero variabili
-MAX_DIMENSION_POPULATION<-500#dimensione popolazione
+MAX_DIMENSION_POPULATION<-1000#dimensione popolazione
 CROSS_OVER_PROBABILITY<-0.95#probabilità per ogni generazione di usare il cross-over
 MUTATION_PROBABILITY<-0.01#probabilità per ogni generazione di usare la mutazione
 #aumeto_diminuisco_percentuale_valore=0.1#quando c'è mutazione scelgo casualmente x o y e modifico del 5% il valore aumentandolo o diminuendolo stando attendo a lb e ub
 MAXIMUM_GENERATION_NUMBER<-1000000
-STAZIONARIETA<-10000
+STAZIONARIETA<-100000
 min_max<--1#-1 minimizzo,1 massimizzo
 stampo_generazione<-5000
 #massimizzo
@@ -287,14 +306,14 @@ precisione<-0.001#
 
 FUNZIONE_COSTO<-function(x,y){
     #z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
-    #z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
+    z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
     #z<-(1.5-x+x*y)^2+(2.25-x+x*y^2)^2+(2.625-x+x*y^3)^2#Beale function f(3,0.5)=0
     #z<-0.26*(x^2+y^2)-0.48*x*y#Matyas function f(0,0)=0
     #z<-(sin(3*pi*x))^2+(x-1)^2*(1+sin(3*pi*y))+(y-1)^2*(1+(sin(2*pi*y))^2)#Lévi function N.13  f(1,1)=0
     #z<-0.5+((sin(x^2-y^2))^2-0.5)/(1+0.001*(x^2+y^2))^2#Schaffer function N. 2  f(0,0)=0
     #z<-2*x^2-1.05*x^4+(x^6/6)+x*y+y^2#THREE-HUMP CAMEL FUNCTION xi  [-5, 5]  f(0,0)=0
     #z<-100*sqrt(abs(y-0.01*x^2))+0.01*abs(x+10)#Bukin function N.6 f(-10,1)=0
-    z<--20*exp(-0.2*sqrt((1/2)*(x*x+y*y)))-exp(1/2*((cos(2*pi*x)+cos(2*pi*y))))+20+exp(1)#ACKLEY FUNCTION xi  [-32.768, 32.768]  f(0,0)=0
+    #z<--20*exp(-0.2*sqrt((1/2)*(x*x+y*y)))-exp(1/2*((cos(2*pi*x)+cos(2*pi*y))))+20+exp(1)#ACKLEY FUNCTION xi  [-32.768, 32.768]  f(0,0)=0
 
 
     #z<-0.5+(((cos(sin(abs(x^2-y^2))))^2 - 0.5)/((1 + 0.001*(x^2+y^2))^2))#Schaffer function N. 4 f(0,+-1.25313)=0.292579
