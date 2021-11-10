@@ -280,24 +280,24 @@ windows()
 ub<-c(512,512)  
 lb<-c(-512,-512)
 
-aumeto_diminuisco_percentuale_valore=0.05
+aumeto_diminuisco_percentuale_valore=0.1
 
 MAX_UNKNOWNS<-2  #numero variabili
 MAX_DIMENSION_POPULATION<-1000#dimensione popolazione
 CROSS_OVER_PROBABILITY<-0.95#probabilità per ogni generazione di usare il cross-over
-MUTATION_PROBABILITY<-0.01#probabilità per ogni generazione di usare la mutazione
+MUTATION_PROBABILITY<-0.05#probabilità per ogni generazione di usare la mutazione
 #aumeto_diminuisco_percentuale_valore=0.1#quando c'è mutazione scelgo casualmente x o y e modifico del 5% il valore aumentandolo o diminuendolo stando attendo a lb e ub
 MAXIMUM_GENERATION_NUMBER<-1000000
-STAZIONARIETA<-100000
+STAZIONARIETA<-30000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-5000
+stampo_generazione<-10000
 #massimizzo
 #precisione<-11.999#Parabolic Function
 #precisione<-79.999#rastrigin function 
 #precisione<-415.2384791312#Parabolic Function
 
 #minimizzo
-precisione<-0.001#
+precisione<-0.01#
 #precisione<--0.999999#Easom function
 #precisione<-0.2925789999#Schaffer function N. 4 f(0,+-1.25313)=0.292579
 #precisione<--0.999999#per funzioni con minimo negativo
@@ -305,8 +305,8 @@ precisione<-0.001#
 
 
 FUNZIONE_COSTO<-function(x,y){
-    #z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
-    z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
+    z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
+    #z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
     #z<-(1.5-x+x*y)^2+(2.25-x+x*y^2)^2+(2.625-x+x*y^3)^2#Beale function f(3,0.5)=0
     #z<-0.26*(x^2+y^2)-0.48*x*y#Matyas function f(0,0)=0
     #z<-(sin(3*pi*x))^2+(x-1)^2*(1+sin(3*pi*y))+(y-1)^2*(1+(sin(2*pi*y))^2)#Lévi function N.13  f(1,1)=0

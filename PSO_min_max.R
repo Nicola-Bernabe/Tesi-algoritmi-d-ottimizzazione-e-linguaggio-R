@@ -175,7 +175,7 @@ mainPSO<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,Generazioni,STAZIONARI
     par(mfrow=c(1,2))
     plot(FITNESS_grafico_migliore, type="l", col="red",lwd=10)
     #lines(FITNESS_grafico_migliore_generazione, type="l", col="blue",lty=5)
-    title(main="migliore e andamento fitness per generazione", col.main="blue", font.main="4")
+    #title(main="migliore e andamento fitness per generazione", col.main="blue", font.main="4")
     
     x_particelle<-c()
     y_particelle<-c()
@@ -195,7 +195,7 @@ BEST_FITNESS<-list(BEST_FITNESS,"PSO",n_generazioni)
 #riesco a trovare la soluzione con questi intervalli 
 #ub<-c(1000000000,1000000000)  # upper bound of the unknowns
 #lb<-c(-1000000000,-1000000000)  #lower bound of the unknowns
-#W=0.3
+#W=0.2
 
 #milione
 #ub<-c(1000000,1000000)  # upper bound of the unknowns
@@ -214,13 +214,13 @@ lb<-c(-512,-512)
 #lb<-c(-5,-5)  #lower bound of the unknowns
 #ub<-c(20,20)  # upper bound of the unknowns
 #lb<-c(-20,-20)  #lower bound of the unknowns
-W=0.2
+W=0.3#0.02 o 0.3
 MAX_UNKNOWNS<-2  #numero variabili
 MAX_DIMENSION_Sciame<-100#dimensione popolazione
 Generazioni<-1000000
-STAZIONARIETA<-10000
+STAZIONARIETA<-50000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-5000
+stampo_generazione<-10000
 #massimizzo
 #precisione<-11.99999999#Parabolic Function
 #precisione<-79.9999#rastrigin function 
@@ -270,6 +270,26 @@ FUNZIONE_COSTO<-function(x,y){
 
 soluzione<-mainPSO(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,Generazioni,STAZIONARIETA,min_max,stampo_generazione,precisione,C_1,C_2,W,FUNZIONE_COSTO)
 #print(soluzione)
+#W<-0
+#x<-c()
+#y<-c()
+#fitness<-c()
+#w_critico<-c()
+#generazioni_soluzione<-c()
+#for(i in 1:50){
+#    W<-W+0.01
+#    message(i," W ",W)
+#    soluzione<-mainPSO(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,Generazioni,STAZIONARIETA,min_max,stampo_generazione,precisione,C_1,C_2,W,FUNZIONE_COSTO)
+#    w_critico<-c(w_critico,W)
+#    x<-c(x,soluzione[[1]][1])
+#    y<-c(y,soluzione[[1]][2])
+#    fitness<-c(fitness,soluzione[[1]][3])
+#    generazioni_soluzione<-c(generazioni_soluzione,soluzione[[3]][1])
+    
+
+#}
+#df<-data.frame(x,y,fitness,generazioni_soluzione,w_critico)
+#write.table(df, file="tabella PSO.csv",sep=";",row.names=FALSE)
 
 algoritmo<-c(soluzione[[2]][1])
 x<-c(soluzione[[1]][1])
