@@ -278,7 +278,7 @@ f_max<-2#ub[1]
 r<-0.95
 A<-0.95#A_max#puo essere costante o decrescere
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-5000
+stampo_generazione<-STAZIONARIETA/2
 #massimizzo
 #precisione<-11.999999#Parabolic Function
 #precisione<-79.999#rastrigin function 
