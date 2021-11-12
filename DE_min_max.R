@@ -108,7 +108,7 @@ aggiorno_file_individui<-function(Population,MAX_DIMENSION_POPULATION,generazion
                     }
             df<-data.frame(x,y,fitness)
             #nome_file<-"generazione"+generazione+".cvs"
-            nome_file = paste("DE generazione ",generazione,".txt",sep="")
+            nome_file = paste("DE Popolazione generazione ",generazione,".txt",sep="")
             #write.csv(df, file=nome_file,sep=";",row.names=FALSE)
             write.table(df, file= nome_file,sep=";",row.names=FALSE)
             }
@@ -277,7 +277,7 @@ CROSS_OVER_PROBABILITY<-0.65#probabilità per ogni generazione di usare il cross
 MAXIMUM_GENERATION_NUMBER<-1000000
 STAZIONARIETA<-10000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2
+stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
 #massimizzo
 #precisione<-11.999999#Parabolic Function
 #precisione<-79.999#rastrigin function 

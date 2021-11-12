@@ -109,7 +109,7 @@ aggiorno_file_individui<-function(Sciame,MAX_DIMENSION_Sciame,generazione){
                     }
             df<-data.frame(x,y,fitness)
             #nome_file<-"generazione"+generazione+".cvs"
-            nome_file = paste("PSO generazione ",generazione,".txt",sep="")
+            nome_file = paste("PSO Sciaame generazione ",generazione,".txt",sep="")
             #write.csv(df, file=nome_file,sep=";",row.names=FALSE)
             write.table(df, file= nome_file,sep=";",row.names=FALSE)
             }
@@ -220,7 +220,7 @@ MAX_DIMENSION_Sciame<-100#dimensione popolazione
 Generazioni<-1000000
 STAZIONARIETA<-50000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2
+stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
 #massimizzo
 #precisione<-11.99999999#Parabolic Function
 #precisione<-79.9999#rastrigin function 

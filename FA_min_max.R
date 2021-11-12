@@ -136,7 +136,7 @@ aggiorno_file_individui<-function(Sciame,MAX_DIMENSION_Sciame,generazione){
                     }
             df<-data.frame(x,y,fitness)
             #nome_file<-"generazione"+generazione+".cvs"
-            nome_file = paste("FA generazione ",generazione,".txt",sep="")
+            nome_file = paste("FA Sciame generazione ",generazione,".txt",sep="")
             #write.csv(df, file=nome_file,sep=";",row.names=FALSE)
             write.table(df, file= nome_file,sep=";",row.names=FALSE)
             }
@@ -247,11 +247,11 @@ lb<-c(-100,-100)  #lower bound of the unknowns
 #ub<-c(512,512)  
 #lb<-c(-512,-512)
 MAX_UNKNOWNS<-2  #numero variabili
-MAX_DIMENSION_Sciame<-50#dimensione popolazione
+MAX_DIMENSION_Sciame<-100#dimensione popolazione
 Generazioni<-500000
 STAZIONARIETA<-5000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2
+stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
 #massimizzo
 #precisione<-11.999999#Parabolic Function
 #precisione<-79.999#rastrigin function 
@@ -295,7 +295,7 @@ FUNZIONE_COSTO<-function(x,y){
     #z<--(y+47)*sin(sqrt(abs(x/2+(y+47))))-x*sin(sqrt(abs(x-(y+47))))#Eggholder function   f(512,404.2319)=-959.6407    
     #precisione<--959.6406999
     #ub<-c(512,512)  
-    #lb<-c(-512,-512)
+    #lb<-c(-512,-512)  importante il dominio di x e y
 
 
     #massimizzare
@@ -311,7 +311,7 @@ soluzione<-mainFA(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,Generazioni,STAZIONARI
 algoritmo<-c(soluzione[[2]][1])
 x<-c(soluzione[[1]][1])
 y<-c(soluzione[[1]][2])
-fitness<-c(soluzione[[1]][5])
+fitness<-c(soluzione[[1]][3])
 generazioni_soluzione<-c(soluzione[[3]][1])
 df<-data.frame(algoritmo,x,y,fitness,generazioni_soluzione)
 write.table(df, file="soluzione FA.txt",sep=";",row.names=FALSE)

@@ -132,15 +132,6 @@ inizializzazione<-function(ub, lb,MAX_UNKNOWNS,MAX_DIMENSION_Sciame,A,FUNZIONE_C
     }
     return (Sciame)
 }
-media_sciame<-function(Sciame,j){
-    x_y <- c()
-    
-    for(i in 1:dim(Sciame)[2]) {
-        x_y <- c(x_y,Sciame[j,i])
-
-    }
-    return(mean(x_y))
-}
 
 aggiorno_file_individui<-function(Sciame,MAX_DIMENSION_Sciame,generazione){
                 individuo<-c()
@@ -158,7 +149,7 @@ aggiorno_file_individui<-function(Sciame,MAX_DIMENSION_Sciame,generazione){
                     }
             df<-data.frame(x,y,fitness)
             #nome_file<-"generazione"+generazione+".cvs"
-            nome_file = paste("BAT generazione ",generazione,".txt",sep="")
+            nome_file = paste("BAT Sciame generazione ",generazione,".txt",sep="")
             #write.csv(df, file=nome_file,sep=";",row.names=FALSE)
             write.table(df, file= nome_file,sep=";",row.names=FALSE)
             }
@@ -278,7 +269,7 @@ f_max<-2#ub[1]
 r<-0.95
 A<-0.95#A_max#puo essere costante o decrescere
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2
+stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
 #massimizzo
 #precisione<-11.999999#Parabolic Function
 #precisione<-79.999#rastrigin function 

@@ -107,7 +107,7 @@ aggiorno_file_individui<-function(Population,MAX_DIMENSION_POPULATION,generazion
                     }
             df<-data.frame(x,y,fitness)
             #nome_file<-"generazione"+generazione+".cvs"
-            nome_file = paste("GA generazione ",generazione,".txt",sep="")
+            nome_file = paste("GA Popolazione generazione ",generazione,".txt",sep="")
             #write.csv(df, file=nome_file,sep=";",row.names=FALSE)
             write.table(df, file= nome_file,sep=";",row.names=FALSE)
             }
@@ -286,17 +286,17 @@ lb<-c(-100,-100)  #lower bound of the unknowns
 #ub<-c(512,512)  
 #lb<-c(-512,-512)
 
-aumeto_diminuisco_percentuale_valore=0.1
+aumeto_diminuisco_percentuale_valore=0.2
 
 MAX_UNKNOWNS<-2  #numero variabili
-MAX_DIMENSION_POPULATION<-100#dimensione popolazione  DEVE ESSERE PARI
+MAX_DIMENSION_POPULATION<-200#dimensione popolazione  DEVE ESSERE PARI
 CROSS_OVER_PROBABILITY<-0.95#probabilità per ogni generazione di usare il cross-over
 MUTATION_PROBABILITY<-0.005#probabilità per ogni generazione di usare la mutazione
 #aumeto_diminuisco_percentuale_valore=0.1#quando c'è mutazione scelgo casualmente x o y e modifico del 5% il valore aumentandolo o diminuendolo stando attendo a lb e ub
 MAXIMUM_GENERATION_NUMBER<-2000000
 STAZIONARIETA<-500000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2
+stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
 #massimizzo
 #precisione<-11.999#Parabolic Function
 #precisione<-79.999#rastrigin function 
@@ -312,8 +312,8 @@ precisione<-0.01#
 
 FUNZIONE_COSTO<-function(x,y){
     #z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
-    z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
-    #z<-(1.5-x+x*y)^2+(2.25-x+x*y^2)^2+(2.625-x+x*y^3)^2#Beale function f(3,0.5)=0
+    #z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
+    z<-(1.5-x+x*y)^2+(2.25-x+x*y^2)^2+(2.625-x+x*y^3)^2#Beale function f(3,0.5)=0
     #z<-0.26*(x^2+y^2)-0.48*x*y#Matyas function f(0,0)=0
     #z<-(sin(3*pi*x))^2+(x-1)^2*(1+sin(3*pi*y))+(y-1)^2*(1+(sin(2*pi*y))^2)#Lévi function N.13  f(1,1)=0
     #z<-0.5+((sin(x^2-y^2))^2-0.5)/(1+0.001*(x^2+y^2))^2#Schaffer function N. 2  f(0,0)=0
