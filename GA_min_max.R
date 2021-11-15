@@ -182,7 +182,7 @@ mainGA<-function(ub,lb,MAX_UNKNOWNS,MAX_DIMENSION_POPULATION,MAXIMUM_GENERATION_
         n_generazioni<-i
         #print(runif(1, 0,1))
         #genitori_indici<-sample(1:(MAX_DIMENSION_POPULATION), MAX_DIMENSION_POPULATION)#array indici casuali della popolazione
-        genitori_indici<-order(Population[3,])
+        genitori_indici<-order(Population[3,])#prendo indici ordinatti degli individui in base alla fitness
         #print(Population)
         #print(genitori_indici)
         #print(genitori_1_2_indici)
@@ -289,14 +289,15 @@ lb<-c(-100,-100)  #lower bound of the unknowns
 aumeto_diminuisco_percentuale_valore=0.2
 
 MAX_UNKNOWNS<-2  #numero variabili
-MAX_DIMENSION_POPULATION<-200#dimensione popolazione  DEVE ESSERE PARI
+MAX_DIMENSION_POPULATION<-500#dimensione popolazione  DEVE ESSERE PARI
 CROSS_OVER_PROBABILITY<-0.95#probabilità per ogni generazione di usare il cross-over
 MUTATION_PROBABILITY<-0.005#probabilità per ogni generazione di usare la mutazione
 #aumeto_diminuisco_percentuale_valore=0.1#quando c'è mutazione scelgo casualmente x o y e modifico del 5% il valore aumentandolo o diminuendolo stando attendo a lb e ub
 MAXIMUM_GENERATION_NUMBER<-2000000
 STAZIONARIETA<-500000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
+stomp_file_percetuale_gen=0.10#in percentuale
+stampo_generazione<-MAXIMUM_GENERATION_NUMBER/stomp_file_percetuale_gen#quando creare file degli individui
 #massimizzo
 #precisione<-11.999#Parabolic Function
 #precisione<-79.999#rastrigin function 

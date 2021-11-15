@@ -277,7 +277,8 @@ CROSS_OVER_PROBABILITY<-0.65#probabilità per ogni generazione di usare il cross
 MAXIMUM_GENERATION_NUMBER<-1000000
 STAZIONARIETA<-10000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
+stomp_file_percetuale_gen=0.10#in percentuale
+stampo_generazione<-MAXIMUM_GENERATION_NUMBER/stomp_file_percetuale_gen#quando creare file degli individui
 #massimizzo
 #precisione<-11.999999#Parabolic Function
 #precisione<-79.999#rastrigin function 

@@ -220,7 +220,8 @@ MAX_DIMENSION_Sciame<-100#dimensione popolazione
 Generazioni<-1000000
 STAZIONARIETA<-50000
 min_max<--1#-1 minimizzo,1 massimizzo
-stampo_generazione<-STAZIONARIETA/2#quando creare file degli individui
+stomp_file_percetuale_gen=0.10#in percentuale
+stampo_generazione<-Generazioni/stomp_file_percetuale_gen#quando creare file degli individui
 #massimizzo
 #precisione<-11.99999999#Parabolic Function
 #precisione<-79.9999#rastrigin function 
