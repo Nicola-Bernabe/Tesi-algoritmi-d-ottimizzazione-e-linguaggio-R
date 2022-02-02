@@ -31,8 +31,8 @@ aggiornamento_posizione<-function(Sciame,MAX_DIMENSION_Sciame,particelle_1_2_ind
         #beta_0<-1
         beta<-(beta_0-b_0)*exp(-gamma_parametro*r)+b_0
         #stemps<-alpha*(runif(1, 0,MAX_DIMENSION_Sciame,)-0.5)#*scale
-        stemps_x<-alpha*(runif(1, 0,MAX_UNKNOWNS)-0.5)
-        stemps_y<-alpha*(runif(1, 0,MAX_UNKNOWNS)-0.5)
+        stemps_x<-alpha*(runif(1, 0,1)-0.5)
+        stemps_y<-alpha*(runif(1, 0,1)-0.5)
         Sciame[1,particelle_1_2_indici[1]]<-(1-beta)*Sciame[1,particelle_1_2_indici[1]]+beta*Sciame[1,particelle_1_2_indici[2]]+stemps_x
         Sciame[2,particelle_1_2_indici[1]]<-(1-beta)*Sciame[2,particelle_1_2_indici[1]]+beta*Sciame[2,particelle_1_2_indici[2]]+stemps_y
         #message("prima beta ",beta," steps ",stemps," "," alpha ",alpha," ",Sciame[1,particelle_1_2_indici[1]]," ",Sciame[2,particelle_1_2_indici[1]]," ",Sciame[3,particelle_1_2_indici[1]])
@@ -262,7 +262,7 @@ stampo_generazione<-Generazioni/percentuale_generazione_stampo
 #precisione<-414.23847913128#Parabolic Function
 
 #minimizzo
-precisione<-0.0000001#
+precisione<-0.000000001#
 #precisione<--0.999999#Easom function
 #precisione<-0.2925789999#Schaffer function N. 4 f(0,+-1.25313)=0.292579
 #precisione<--0.999999#per funzioni con minimo negativo
@@ -280,12 +280,12 @@ b_0<-1#numero positivo intero che determina l' attattività con r=0 in genere va
 
 
 FUNZIONE_COSTO<-function(x,y){
-    #z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
+    z<-(100*(y-(x)^2)^2)+(1-x)^2#FUNZIONE_COSTO banana  f(1,1)=0
     #z<-((1-x)^2)+100*((y-x^2))^2#Rosenbrock function constrained with a cubic and a line  sol f(1,1)=0
     #z<-(1.5-x+x*y)^2+(2.25-x+x*y^2)^2+(2.625-x+x*y^3)^2#Beale function f(3,0.5)=0
     #z<-0.26*(x^2+y^2)-0.48*x*y#Matyas function f(0,0)=0
     #z<-(sin(3*pi*x))^2+(x-1)^2*(1+sin(3*pi*y))+(y-1)^2*(1+(sin(2*pi*y))^2)#Lévi function N.13  f(1,1)=0
-    z<-0.5+((sin(x^2-y^2))^2-0.5)/(1+0.001*(x^2+y^2))^2#Schaffer function N. 2  f(0,0)=0
+    #z<-0.5+((sin(x^2-y^2))^2-0.5)/(1+0.001*(x^2+y^2))^2#Schaffer function N. 2  f(0,0)=0
     #z<-2*x^2-1.05*x^4+(x^6/6)+x*y+y^2#THREE-HUMP CAMEL FUNCTION xi  [-5, 5]  f(0,0)=0
     #z<--20*exp(-0.2*sqrt((1/2)*(x*x+y*y)))-exp(1/2*((cos(2*pi*x)+cos(2*pi*y))))+20+exp(1)#ACKLEY FUNCTION xi  [-32.768, 32.768]  f(0,0)=0
     #z<-10*2+((x^2-10*cos(2*pi*x))+(y^2-10*cos(2*pi*y)))#RASTRIGIN FUNCTION f(0,0)=0 xi [-5.12, 5.12]
